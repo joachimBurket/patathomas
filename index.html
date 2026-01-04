@@ -7,6 +7,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥔</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* === Base Styles === */
         * {
             margin: 0;
             padding: 0;
@@ -23,10 +24,10 @@
             position: relative;
         }
 
+        /* === Keyframe Animations === */
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         @keyframes blink {
@@ -50,7 +51,18 @@
             20%, 40%, 60%, 80% { transform: translateX(10px); }
         }
 
-        .ad {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { right: -280px; }
+            to { right: 0; }
+        }
+
+        /* === Advertisement Windows === */
+        .info {
             position: absolute;
             background: #c0c0c0;
             border: 2px outset #fff;
@@ -60,7 +72,7 @@
             font-family: 'MS Sans Serif', Arial, sans-serif;
         }
 
-        .ad-titlebar {
+        .info-titlebar {
             background: linear-gradient(to right, #000080, #1084d0);
             color: #fff;
             padding: 2px 4px;
@@ -72,19 +84,19 @@
             cursor: move;
         }
 
-        .ad-title {
+        .info-title {
             display: flex;
             align-items: center;
             gap: 3px;
             font-size: 0.9em;
         }
 
-        .ad-buttons {
+        .info-buttons {
             display: flex;
             gap: 1px;
         }
 
-        .ad-button {
+        .info-button {
             width: 12px;
             height: 11px;
             background: #c0c0c0;
@@ -97,20 +109,19 @@
             font-weight: bold;
         }
 
-        .ad-button:active {
+        .info-button:active {
             border: 1px inset #fff;
         }
 
-        .ad-body {
+        .info-body {
             padding: 8px;
             background: #fff;
             border: 2px inset #808080;
             margin: 2px;
             text-align: center;
-            display: block !important;
         }
 
-        .ad-header {
+        .info-header {
             font-weight: bold;
             font-size: 0.9em;
             margin-bottom: 5px;
@@ -118,42 +129,42 @@
             text-transform: uppercase;
         }
 
-        .ad-content {
+        .info-content {
             font-size: 0.7em;
             color: #000;
             line-height: 1.4;
         }
 
-        .ad:nth-child(1) {
+        /* Ad positioning */
+        .info:nth-child(1) {
             top: 10%;
             left: 5%;
-            animation: blink 0.8s infinite;
+            animation: blink 0.8s infinite 0.3s;
         }
 
-        .ad:nth-child(2) {
+        .info:nth-child(2) {
             top: 15%;
             right: 5%;
         }
 
-        .ad:nth-child(3) {
+        .info:nth-child(3) {
             top: 50%;
             left: 2%;
-            animation: blink 0.8s infinite;
-            animation-delay: 0.4s;
+            animation: blink 0.8s infinite 0.4s;
         }
 
-        .ad:nth-child(4) {
+        .info:nth-child(4) {
             top: 70%;
             left: 8%;
         }
 
-        .ad:nth-child(5) {
+        .info:nth-child(5) {
             bottom: 10%;
             right: 10%;
-            animation: blink 0.8s infinite;
-            animation-delay: 0.8s;
+            animation: blink 0.8s infinite 0.8s;
         }
 
+        /* === Main Page Title and Button === */
         .page-title {
             position: absolute;
             top: 20px;
@@ -168,7 +179,7 @@
                 3px 3px 0 #ff0000,
                 6px 6px 0 #00ff00,
                 9px 9px 0 #0000ff;
-            font-size: 3em;
+            font-size: 2em;
             margin-bottom: 40px;
             animation: bounce 2s infinite;
         }
@@ -183,7 +194,7 @@
             cursor: pointer;
             text-transform: uppercase;
             box-shadow: 10px 10px 0 #000;
-            animation: blink 0.8s infinite;
+            animation: blink 0.8s infinite 0.2s;
             font-family: 'Comic Sans MS', cursive;
         }
 
@@ -191,6 +202,7 @@
             animation: blink 0.4s infinite, rotate 2s infinite;
         }
 
+        /* === Confirmation Modal === */
         .modal {
             display: none;
             position: fixed;
@@ -201,11 +213,6 @@
             background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .modal.show {
@@ -250,6 +257,10 @@
             font-family: 'Comic Sans MS', cursive;
         }
 
+        .modal-btn:hover {
+            transform: scale(1.1);
+        }
+
         #cancelBtn {
             background: #ff0000;
             color: #fff;
@@ -261,11 +272,7 @@
             animation: blink 0.6s infinite;
         }
 
-        .modal-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Rating Modal */
+        /* === Rating Modal === */
         .rating-modal {
             display: none;
             position: fixed;
@@ -325,16 +332,7 @@
             transform: scale(0.9);
         }
 
-        /* Side Banner */
-        @keyframes slideIn {
-            from {
-                right: -280px;
-            }
-            to {
-                right: 0;
-            }
-        }
-
+        /* === Side Banner === */
         .side-banner {
             position: fixed;
             right: -280px;
@@ -366,7 +364,6 @@
             letter-spacing: 1px;
             text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
             font-family: Impact, Arial Black, sans-serif;
-            
         }
 
         .banner-header-text {
@@ -378,46 +375,6 @@
             border: 2px solid #000;
             padding: 10px;
             border-radius: 8px;
-        }
-
-        .chat-bubble {
-            background: #e0e0e0;
-            border: 2px solid #000;
-            border-radius: 10px;
-            padding: 10px;
-            margin-top: 8px;
-            position: relative;
-            animation: bounce 2s infinite;
-        }
-
-        .chat-bubble:before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 15px;
-            width: 0;
-            height: 0;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-right: 8px solid #000;
-        }
-
-        .chat-bubble:after {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 16px;
-            width: 0;
-            height: 0;
-            border-top: 7px solid transparent;
-            border-bottom: 7px solid transparent;
-            border-right: 7px solid #e0e0e0;
-        }
-
-        .chat-text {
-            font-size: 0.9em;
-            color: #000;
-            font-weight: bold;
         }
 
         .banner-close {
@@ -443,13 +400,58 @@
             transition: transform 0.3s;
         }
 
+        /* === Chat Bubble Styles === */
+        .chat-bubble {
+            background: #e0e0e0;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 8px;
+            position: relative;
+            animation: bounce 2s infinite;
+        }
+
+        .chat-bubble::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 15px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid #000;
+        }
+
+        .chat-bubble::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 16px;
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-right: 7px solid #e0e0e0;
+        }
+
+        .chat-text {
+            font-size: 0.9em;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .wiggle {
+            animation: wiggle 0.5s;
+        }
+
         .girl-emoji {
             font-size: 2em;
             text-align: center;
             margin: 8px 0;
-            transition: font-size 0.1s;
         }
 
+        /* === Chat Input Styles === */
         .chat-response {
             margin-top: 10px;
             display: flex;
@@ -489,82 +491,78 @@
         .chat-submit:hover {
             background: #ff69b4;
         }
-
-        .wiggle {
-            animation: wiggle 0.5s;
-        }
     </style>
 </head>
 <body>
-    <!-- Blinking Ads -->
-    <div class="ad">
-        <div class="ad-titlebar">
-            <div class="ad-title">💰 Winner!</div>
-            <div class="ad-buttons">
-                <div class="ad-button">_</div>
-                <div class="ad-button">□</div>
-                <div class="ad-button">×</div>
+    <!-- Advertisement Windows -->
+    <div class="info">
+        <div class="info-titlebar">
+            <div class="info-title">💰 Winner!</div>
+            <div class="info-buttons">
+                <div class="info-button">_</div>
+                <div class="info-button">□</div>
+                <div class="info-button">×</div>
             </div>
         </div>
-        <div class="ad-body">
-            <div class="ad-header">💰 WIN NOW!</div>
-            <div class="ad-content">You are the 1,000,000th visitor! Click to claim your prize NOW!</div>
+        <div class="info-body">
+            <div class="info-header">💰 WIN NOW!</div>
+            <div class="info-content">You are the 1,000,000th visitor! Click to claim your prize NOW!</div>
         </div>
     </div>
-    <div class="ad">
-        <div class="ad-titlebar">
-            <div class="ad-title">🤑 Hot Deal</div>
-            <div class="ad-buttons">
-                <div class="ad-button">_</div>
-                <div class="ad-button">□</div>
-                <div class="ad-button">×</div>
+    <div class="info">
+        <div class="info-titlebar">
+            <div class="info-title">🤑 Hot Deal</div>
+            <div class="info-buttons">
+                <div class="info-button">_</div>
+                <div class="info-button">□</div>
+                <div class="info-button">×</div>
             </div>
         </div>
-        <div class="ad-body">
-            <div class="ad-header">🤑 HOT DEAL!</div>
-            <div class="ad-content">AMAZING discount! 99% OFF everything! Don't miss out!</div>
+        <div class="info-body">
+            <div class="info-header">🤑 HOT DEAL!</div>
+            <div class="info-content">AMAZING discount! 99% OFF everything! Don't miss out!</div>
         </div>
     </div>
-    <div class="ad">
-        <div class="ad-titlebar">
-            <div class="ad-title">⭐ Special</div>
-            <div class="ad-buttons">
-                <div class="ad-button">_</div>
-                <div class="ad-button">□</div>
-                <div class="ad-button">×</div>
+    <div class="info">
+        <div class="info-titlebar">
+            <div class="info-title">⭐ Special</div>
+            <div class="info-buttons">
+                <div class="info-button">_</div>
+                <div class="info-button">□</div>
+                <div class="info-button">×</div>
             </div>
         </div>
-        <div class="ad-body">
-            <div class="ad-header">⭐ CLICK ME!</div>
-            <div class="ad-content">Your computer may be at risk! Click here to scan now!</div>
+        <div class="info-body">
+            <div class="info-header">⭐ CLICK ME!</div>
+            <div class="info-content">Your computer may be at risk! Click here to scan now!</div>
         </div>
     </div>
-    <div class="ad">
-        <div class="ad-titlebar">
-            <div class="ad-title">🎉 Congratulations</div>
-            <div class="ad-buttons">
-                <div class="ad-button">_</div>
-                <div class="ad-button">□</div>
-                <div class="ad-button">×</div>
+    <div class="info">
+        <div class="info-titlebar">
+            <div class="info-title">🎉 Congratulations</div>
+            <div class="info-buttons">
+                <div class="info-button">_</div>
+                <div class="info-button">□</div>
+                <div class="info-button">×</div>
             </div>
         </div>
-        <div class="ad-body">
-            <div class="ad-header">🎉 WINNER!</div>
-            <div class="ad-content">You've won an iPhone 15! Click to claim your prize!</div>
+        <div class="info-body">
+            <div class="info-header">🎉 WINNER!</div>
+            <div class="info-content">You've won an iPhone 15! Click to claim your prize!</div>
         </div>
     </div>
-    <div class="ad">
-        <div class="ad-titlebar">
-            <div class="ad-title">🚀 Bonus</div>
-            <div class="ad-buttons">
-                <div class="ad-button">_</div>
-                <div class="ad-button">□</div>
-                <div class="ad-button">×</div>
+    <div class="info">
+        <div class="info-titlebar">
+            <div class="info-title">🚀 Bonus</div>
+            <div class="info-buttons">
+                <div class="info-button">_</div>
+                <div class="info-button">□</div>
+                <div class="info-button">×</div>
             </div>
         </div>
-        <div class="ad-body">
-            <div class="ad-header">🚀 BONUS!</div>
-            <div class="ad-content">Download this FREE toolbar! Improve your browsing now!</div>
+        <div class="info-body">
+            <div class="info-header">🚀 BONUS!</div>
+            <div class="info-content">Download this FREE toolbar! Improve your browsing now!</div>
         </div>
     </div>
 
@@ -602,8 +600,10 @@
     <!-- Side Banner -->
     <div id="sideBanner" class="side-banner">
         <button class="banner-close" onclick="closeBanner()">×</button>
-        <div class="banner-header"> <div class="banner-header-text">🔥 Hot Moms Near Chavornay! 🔥</div></div>
-        <div class="banner-content" id="bannerContent">
+        <div class="banner-header">
+            <div class="banner-header-text">🔥 Hot Moms Near Chavornay! 🔥</div>
+        </div>
+        <div class="banner-content">
             <div class="girl-emoji" id="girlEmoji">👩‍🦰</div>
             <div class="chat-bubble" id="chatBubble">
                 <div class="chat-text">Do you want le sex? 😘</div>
@@ -616,177 +616,186 @@
     </div>
 
     <script>
-        const redeemBtn = document.getElementById('redeemBtn');
-        const modal = document.getElementById('modal');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const confirmRedeemBtn = document.getElementById('confirmRedeemBtn');
-        const chatInput = document.getElementById('chatInput');
-        const chatSubmit = document.getElementById('chatSubmit');
-        const chatBubble = document.getElementById('chatBubble');
-        const girlEmoji = document.getElementById('girlEmoji');
-        
+        // === DOM Element References ===
+        const elements = {
+            redeemBtn: document.getElementById('redeemBtn'),
+            modal: document.getElementById('modal'),
+            cancelBtn: document.getElementById('cancelBtn'),
+            confirmRedeemBtn: document.getElementById('confirmRedeemBtn'),
+            ratingModal: document.getElementById('ratingModal'),
+            stars: document.querySelectorAll('.star'),
+            sideBanner: document.getElementById('sideBanner'),
+            chatInput: document.getElementById('chatInput'),
+            chatSubmit: document.getElementById('chatSubmit'),
+            chatBubble: document.getElementById('chatBubble'),
+            girlEmoji: document.getElementById('girlEmoji')
+        };
+
+        // === Application State ===
         let hasAnsweredCorrectly = false;
+        let hasRated = false;
 
-        redeemBtn.addEventListener('click', () => {
-            if (!hasAnsweredCorrectly) {
-                // Make the chat bubble wiggle
-                chatBubble.classList.add('wiggle');
-                setTimeout(() => {
-                    chatBubble.classList.remove('wiggle');
-                }, 500);
-                return;
-            }
-            modal.classList.add('show');
-        });
+        // === Utility Functions ===
+        const utils = {
+            showModal(modalElement) {
+                modalElement.classList.infod('show');
+            },
 
-        // Handle chat submission
-        function handleChatSubmit() {
-            const answer = chatInput.value.trim().toLowerCase();
-            
-            if (answer === 'yes please') {
-                hasAnsweredCorrectly = true;
-                chatInput.style.display = 'none';
-                chatSubmit.style.display = 'none';
-                girlEmoji.textContent = '😍';
-                // hide the banner after 2 seconds
-                setTimeout(() => {
-                    sideBanner.classList.remove('show');
-                }, 2000);
+            hideModal(modalElement) {
+                modalElement.classList.remove('show');
+            },
+
+            wiggleElement(element, duration = 500) {
+                element.classList.infod('wiggle');
+                setTimeout(() => element.classList.remove('wiggle'), duration);
+            },
+
+            getRandomPosition(maxWidth, maxHeight, elementSize) {
+                return {
+                    top: Math.random() * (maxHeight - elementSize),
+                    left: Math.random() * (maxWidth - elementSize)
+                };
             }
-            else {
-                if (answer === 'yes') {
-                    // Show "Yes what?" blinking ad
-                    const yesAd = document.createElement('div');
-                    yesAd.className = 'ad';
-                    yesAd.style.top = Math.random() * 60 + 20 + '%';
-                    yesAd.style.left = Math.random() * 60 + 20 + '%';
-                    yesAd.style.zIndex = '1000';
-                    yesAd.style.animation = 'blink 1s infinite';
-                    
-                    yesAd.innerHTML = `
-                        <div class="ad-titlebar">
-                            <div class="ad-title">👩‍🦰 Magic word</div>
-                            <div class="ad-buttons">
-                                <div class="ad-button">_</div>
-                                <div class="ad-button">□</div>
-                                <div class="ad-button">×</div>
-                            </div>
-                        </div>
-                        <div class="ad-body">
-                            <div class="ad-header">👩‍🦰 YES?</div>
-                            <div class="ad-content">You need to be more polite! Try again...</div>
-                        </div>
-                    `;
-                    
-                    document.body.appendChild(yesAd);
-                    
-                    // Remove the ad after 5 seconds
-                    setTimeout(() => {
-                        yesAd.remove();
-                    }, 5000);
-                }
-                else {
-                    // Show angry emoji for 2 second
-                    girlEmoji.textContent = '😡';
-                    closeBanner();
-                    setTimeout(() => {
-                        girlEmoji.textContent = '👩‍🦰';
-                    }, 2000);
-                }
-                
-                chatInput.value = '';
-                // Make the chat bubble wiggle
-                chatBubble.classList.add('wiggle');
-                setTimeout(() => {
-                    chatBubble.classList.remove('wiggle');
-                }, 1000);
-            }
+        };
+
+        // === Ad Creation ===
+        function createTemporaryAd() {
+            const info = document.createElement('div');
+            info.className = 'info';
+            const position = utils.getRandomPosition(window.innerWidth * 0.6, window.innerHeight * 0.6, 180);
             
- 
+            Object.assign(info.style, {
+                top: `${position.top + 20}%`,
+                left: `${position.left + 20}%`,
+                zIndex: '1000',
+                animation: 'blink 1s infinite'
+            });
+
+            info.innerHTML = `
+                <div class="info-titlebar">
+                    <div class="info-title">👩‍🦰 Magic word</div>
+                    <div class="info-buttons">
+                        <div class="info-button">_</div>
+                        <div class="info-button">□</div>
+                        <div class="info-button">×</div>
+                    </div>
+                </div>
+                <div class="info-body">
+                    <div class="info-header">👩‍🦰 YES?</div>
+                    <div class="info-content">You need to be more polite! Try again...</div>
+                </div>
+            `;
+
+            document.body.appendChild(info);
+            setTimeout(() => info.remove(), 5000);
         }
 
-        chatSubmit.addEventListener('click', handleChatSubmit);
-        
-        chatInput.addEventListener('keypress', (e) => {
+        // === Chat Handler ===
+        function handleChatSubmit() {
+            const answer = elements.chatInput.value.trim().toLowerCase();
+
+            if (answer === 'yes please') {
+                hasAnsweredCorrectly = true;
+                elements.chatInput.style.display = 'none';
+                elements.chatSubmit.style.display = 'none';
+                elements.girlEmoji.textContent = '😍';
+                setTimeout(() => elements.sideBanner.classList.remove('show'), 2000);
+            } else if (answer === 'yes') {
+                createTemporaryAd();
+                elements.chatInput.value = '';
+                utils.wiggleElement(elements.chatBubble, 1000);
+            } else {
+                elements.girlEmoji.textContent = '😡';
+                closeBanner();
+                setTimeout(() => elements.girlEmoji.textContent = '👩‍🦰', 2000);
+                elements.chatInput.value = '';
+                utils.wiggleElement(elements.chatBubble, 1000);
+            }
+        }
+
+        // === Banner Control ===
+        function closeBanner() {
+            elements.sideBanner.style.opacity = '0';
+            elements.sideBanner.style.transition = 'opacity 0.1s ease';
+
+            setTimeout(() => {
+                const position = utils.getRandomPosition(
+                    window.innerWidth,
+                    window.innerHeight,
+                    400
+                );
+
+                elements.sideBanner.classList.remove('show');
+                Object.assign(elements.sideBanner.style, {
+                    top: `${position.top}px`,
+                    left: `${position.left}px`,
+                    right: 'auto',
+                    transform: 'none',
+                    opacity: '1'
+                });
+            }, 300);
+        }
+
+        // === Rating System ===
+        function showRatingModal() {
+            if (!hasRated) {
+                utils.showModal(elements.ratingModal);
+            }
+        }
+
+        function handleStarClick(rating) {
+            if (rating === 5) {
+                hasRated = true;
+                utils.hideModal(elements.ratingModal);
+                alert('🎉 Thank you for the 5-star rating! You have excellent taste! 🎉');
+            } else {
+                utils.hideModal(elements.ratingModal);
+                const retryDelay = (Math.random() * 4 + 1) * 1000;
+                setTimeout(showRatingModal, retryDelay);
+            }
+        }
+
+        // === Event Listeners ===
+        elements.redeemBtn.infodEventListener('click', () => {
+            if (!hasAnsweredCorrectly) {
+                utils.wiggleElement(elements.chatBubble);
+                return;
+            }
+            utils.showModal(elements.modal);
+        });
+
+        elements.cancelBtn.infodEventListener('click', () => {
+            utils.hideModal(elements.modal);
+        });
+
+        elements.confirmRedeemBtn.infodEventListener('click', () => {
+            alert('🎉 Congratulations! You have redeemed your coupon! 🎉');
+            utils.hideModal(elements.modal);
+        });
+
+        elements.modal.infodEventListener('click', (e) => {
+            if (e.target === elements.modal) {
+                utils.hideModal(elements.modal);
+            }
+        });
+
+        elements.chatSubmit.infodEventListener('click', handleChatSubmit);
+
+        elements.chatInput.infodEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 handleChatSubmit();
             }
         });
 
-        cancelBtn.addEventListener('click', () => {
-            modal.classList.remove('show');
-        });
-
-        confirmRedeemBtn.addEventListener('click', () => {
-            alert('🎉 Congratulations! You have redeemed your coupon! 🎉');
-            modal.classList.remove('show');
-        });
-
-        // Close modal when clicking outside
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('show');
-            }
-        });
-
-        // Show side banner after some time
-        setTimeout(() => {
-            sideBanner.classList.add('show');
-        }, 5000);
-
-        function closeBanner() {
-            // Hide the banner
-            sideBanner.style.opacity = '0';
-            sideBanner.style.transition = 'opacity 0.1s ease';
-            
-            // After 1 second, move to random position and show again
-            setTimeout(() => {
-                const randomTop = Math.random() * (window.innerHeight - 400);
-                const randomLeft = Math.random() * (window.innerWidth - 400);
-                
-                // Remove the show class to stop the slideIn animation
-                sideBanner.classList.remove('show');
-                
-                sideBanner.style.top = randomTop + 'px';
-                sideBanner.style.left = randomLeft + 'px';
-                sideBanner.style.right = 'auto';
-                sideBanner.style.transform = 'none';
-                
-                // Make it visible again
-                sideBanner.style.opacity = '1';
-            }, 300);
-        }
-
-        // Random rating alert
-        const ratingModal = document.getElementById('ratingModal');
-        const stars = document.querySelectorAll('.star');
-        let hasRated = false;
-
-        function showRatingModal() {
-            if (hasRated) return;
-            ratingModal.classList.add('show');
-        }
-
-        stars.forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = this.getAttribute('data-rating');
-                
-                if (rating === '5') {
-                    hasRated = true;
-                    ratingModal.classList.remove('show');
-                    alert('🎉 Thank you for the 5-star rating! You have excellent taste! 🎉');
-                } else {
-                    // Schedule another rating request after 1-5 seconds
-                    ratingModal.classList.remove('show');
-                    const retryDelay = (Math.random() * 4 + 1) * 1000;
-                    setTimeout(showRatingModal, retryDelay);
-                }
+        elements.stars.forEach(star => {
+            star.infodEventListener('click', function() {
+                handleStarClick(parseInt(this.getAttribute('data-rating')));
             });
         });
 
-        // Show rating alert at random time between 10-20 seconds
-        const randomDelay = (Math.random() * 10 + 1) * 1000;
-        setTimeout(showRatingModal, randomDelay);
+        // === Initialization ===
+        setTimeout(() => elements.sideBanner.classList.infod('show'), 5000);
+        setTimeout(showRatingModal, (Math.random() * 10 + 1) * 1000);
     </script>
 </body>
 </html>
