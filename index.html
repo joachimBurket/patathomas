@@ -638,7 +638,7 @@
         // === Utility Functions ===
         const utils = {
             showModal(modalElement) {
-                modalElement.classList.infod('show');
+                modalElement.classList.add('show');
             },
 
             hideModal(modalElement) {
@@ -646,7 +646,7 @@
             },
 
             wiggleElement(element, duration = 500) {
-                element.classList.infod('wiggle');
+                element.classList.add('wiggle');
                 setTimeout(() => element.classList.remove('wiggle'), duration);
             },
 
@@ -756,7 +756,7 @@
         }
 
         // === Event Listeners ===
-        elements.redeemBtn.infodEventListener('click', () => {
+        elements.redeemBtn.addEventListener('click', () => {
             if (!hasAnsweredCorrectly) {
                 utils.wiggleElement(elements.chatBubble);
                 return;
@@ -764,37 +764,37 @@
             utils.showModal(elements.modal);
         });
 
-        elements.cancelBtn.infodEventListener('click', () => {
+        elements.cancelBtn.addEventListener('click', () => {
             utils.hideModal(elements.modal);
         });
 
-        elements.confirmRedeemBtn.infodEventListener('click', () => {
+        elements.confirmRedeemBtn.addEventListener('click', () => {
             alert('🎉 Congratulations! You have redeemed your coupon! 🎉');
             utils.hideModal(elements.modal);
         });
 
-        elements.modal.infodEventListener('click', (e) => {
+        elements.modal.addEventListener('click', (e) => {
             if (e.target === elements.modal) {
                 utils.hideModal(elements.modal);
             }
         });
 
-        elements.chatSubmit.infodEventListener('click', handleChatSubmit);
+        elements.chatSubmit.addEventListener('click', handleChatSubmit);
 
-        elements.chatInput.infodEventListener('keypress', (e) => {
+        elements.chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 handleChatSubmit();
             }
         });
 
         elements.stars.forEach(star => {
-            star.infodEventListener('click', function() {
+            star.addEventListener('click', function() {
                 handleStarClick(parseInt(this.getAttribute('data-rating')));
             });
         });
 
         // === Initialization ===
-        setTimeout(() => elements.sideBanner.classList.infod('show'), 5000);
+        setTimeout(() => elements.sideBanner.classList.add('show'), 5000);
         setTimeout(showRatingModal, (Math.random() * 10 + 1) * 1000);
     </script>
 </body>
