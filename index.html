@@ -3,10 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Page</title>
+    <title>Can you Redeem?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+            background-size: 400% 400%;
+            animation: gradientShift 5s ease infinite;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .ad {
+            position: absolute;
+            padding: 10px 20px;
+            font-weight: bold;
+            border: 3px solid #000;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 5px 5px 0 #000;
+            animation: blink 2s infinite;
+        }
+
+        .ad:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            background: #ff0000;
+            color: #ffff00;
+            animation-delay: 0s;
+        }
+
+        .ad:nth-child(2) {
+            top: 15%;
+            right: 5%;
+            background: #00ff00;
+            color: #ff00ff;
+            animation-delay: 0.2s;
+        }
+
+        .ad:nth-child(3) {
+            top: 50%;
+            left: 2%;
+            background: #0000ff;
+            color: #ffffff;
+            animation-delay: 0.4s;
+        }
+
+        .ad:nth-child(4) {
+            top: 70%;
+            left: 8%;
+            background: #ffff00;
+            color: #ff0000;
+            animation-delay: 0.6s;
+        }
+
+        .ad:nth-child(5) {
+            bottom: 10%;
+            right: 10%;
+            background: #ff00ff;
+            color: #00ff00;
+            animation-delay: 0.8s;
+        }
+
+        .ad:nth-child(6) {
+            top: 35%;
+            right: 3%;
+            background: #00ffff;
+            color: #ff0000;
+            animation-delay: 1s;
+        }
+
+        .ad:nth-child(7) {
+            bottom: 15%;
+            left: 15%;
+            background: #ff8800;
+            color: #0000ff;
+            animation-delay: 0.3s;
+        }
+
+        .ad:nth-child(8) {
+            top: 80%;
+            right: 20%;
+            background: #88ff00;
+            color: #ff0088;
+            animation-delay: 0.7s;
+        }
+
+        .center-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 
+                3px 3px 0 #ff0000,
+                6px 6px 0 #00ff00,
+                9px 9px 0 #0000ff;
+            font-size: 3em;
+            margin-bottom: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        #redeemBtn {
+            padding: 30px 60px;
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0000, #ffff00);
+            color: #000;
+            border: 5px solid #000;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 10px 10px 0 #000;
+            animation: blink 0.8s infinite;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        #redeemBtn:hover {
+            animation: blink 0.4s infinite, rotate 2s infinite;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            border: 10px solid #ffff00;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 255, 0, 0.8);
+            animation: bounce 1s infinite;
+        }
+
+        .modal-text {
+            font-size: 2em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 3px 3px 0 #000;
+            margin-bottom: 30px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: 5px solid #000;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 5px 5px 0 #000;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        #cancelBtn {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        #confirmRedeemBtn {
+            background: #00ff00;
+            color: #000;
+            animation: blink 0.6s infinite;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>Welcome to my simple GitHub Pages site!</p>
+    <!-- Blinking Ads -->
+    <div class="ad">🎁 FREE GIFT!</div>
+    <div class="ad">💰 WIN NOW!</div>
+    <div class="ad">🔥 HOT DEAL!</div>
+    <div class="ad">⭐ CLICK ME!</div>
+    <div class="ad">🎉 WINNER!</div>
+    <div class="ad">💎 PRIZE!</div>
+    <div class="ad">🚀 BONUS!</div>
+    <div class="ad">🎊 JACKPOT!</div>
+
+    <!-- Center Content -->
+    <div class="center-container">
+        <h1>Can you redeem the coupon, Mr. Patathomas?</h1>
+        <button id="redeemBtn">Click to Redeem</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-text">Do you really want to redeem?</div>
+            <div class="modal-buttons">
+                <button id="cancelBtn" class="modal-btn">Cancel</button>
+                <button id="confirmRedeemBtn" class="modal-btn">Redeem</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const redeemBtn = document.getElementById('redeemBtn');
+        const modal = document.getElementById('modal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmRedeemBtn = document.getElementById('confirmRedeemBtn');
+
+        redeemBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+
+        confirmRedeemBtn.addEventListener('click', () => {
+            alert('🎉 Congratulations! You have redeemed your coupon! 🎉');
+            modal.classList.remove('show');
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>
