@@ -58,7 +58,7 @@
             min-width: 150px;
             max-width: 180px;
             font-family: 'MS Sans Serif', Arial, sans-serif;
-            z-index: 10;
+            display: block !important;
         }
 
         .ad-titlebar {
@@ -699,7 +699,7 @@
                 chatBubble.classList.add('wiggle');
                 setTimeout(() => {
                     chatBubble.classList.remove('wiggle');
-                }, 500);
+                }, 1000);
             }
             
  
@@ -735,18 +735,26 @@
         }, 5000);
 
         function closeBanner() {
-            // Move banner to a random position instead of closing
-            const randomTop = Math.random() * (window.innerHeight - 400);
-            const randomLeft = Math.random() * (window.innerWidth - 400);
+            // Hide the banner
+            sideBanner.style.opacity = '0';
+            sideBanner.style.transition = 'opacity 0.1s ease';
             
-            // Remove the show class to stop the slideIn animation
-            sideBanner.classList.remove('show');
-            
-            sideBanner.style.transition = 'all 0.3s ease';
-            sideBanner.style.top = randomTop + 'px';
-            sideBanner.style.left = randomLeft + 'px';
-            sideBanner.style.right = 'auto';
-            sideBanner.style.transform = 'none';
+            // After 1 second, move to random position and show again
+            setTimeout(() => {
+                const randomTop = Math.random() * (window.innerHeight - 400);
+                const randomLeft = Math.random() * (window.innerWidth - 400);
+                
+                // Remove the show class to stop the slideIn animation
+                sideBanner.classList.remove('show');
+                
+                sideBanner.style.top = randomTop + 'px';
+                sideBanner.style.left = randomLeft + 'px';
+                sideBanner.style.right = 'auto';
+                sideBanner.style.transform = 'none';
+                
+                // Make it visible again
+                sideBanner.style.opacity = '1';
+            }, 300);
         }
 
         // Random rating alert
