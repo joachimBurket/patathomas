@@ -658,15 +658,15 @@
             }
         };
 
-        // === Ad Creation ===
-        function createTemporaryAd() {
+        // === Info Creation ===
+        function createTemporaryInfo() {
             const info = document.createElement('div');
             info.className = 'info';
             const position = utils.getRandomPosition(window.innerWidth * 0.6, window.innerHeight * 0.6, 180);
             
             Object.assign(info.style, {
-                top: `${position.top + 20}%`,
-                left: `${position.left + 20}%`,
+                top: `${position.top}px`,
+                left: `${position.left}px`,
                 zIndex: '1000',
                 animation: 'blink 1s infinite'
             });
@@ -680,14 +680,14 @@
                         <div class="info-button">×</div>
                     </div>
                 </div>
-                <div class="info-body">
+                <div class="info-body" style="background: #dedece;">
                     <div class="info-header">👩‍🦰 YES?</div>
                     <div class="info-content">You need to be more polite! Try again...</div>
                 </div>
             `;
 
             document.body.appendChild(info);
-            setTimeout(() => info.remove(), 5000);
+            // setTimeout(() => info.remove(), 5000);
         }
 
         // === Chat Handler ===
@@ -701,7 +701,7 @@
                 elements.girlEmoji.textContent = '😍';
                 setTimeout(() => elements.sideBanner.classList.remove('show'), 2000);
             } else if (answer === 'yes') {
-                createTemporaryAd();
+                createTemporaryInfo();
                 elements.chatInput.value = '';
                 utils.wiggleElement(elements.chatBubble, 1000);
             } else {
