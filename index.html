@@ -568,8 +568,8 @@
 
     <!-- Center Content -->
     <div class="page-title">
-        <h1>Can you redeem the coupon, Mr. Patathomas 🥔?</h1>
-        <button id="redeemBtn">Click to Redeem</button>
+        <h1>Can you redeem the code, Mr. Patathomas 🥔?</h1>
+        <button id="redeemBtn">Click to Redeem your code!!!</button>
     </div>
 
     <!-- Modal -->
@@ -687,20 +687,23 @@
             `;
 
             document.body.appendChild(info);
-            // setTimeout(() => info.remove(), 5000);
+            setTimeout(() => info.remove(), 8000);
         }
 
         // === Chat Handler ===
         function handleChatSubmit() {
             const answer = elements.chatInput.value.trim().toLowerCase();
 
-            if (answer === 'yes please') {
+            if (['yes please', 'yes, please', 'oui svp', 'oui, svp', "oui s'il vous plait", "oui, s'il vous plait"].includes(answer)) {
                 hasAnsweredCorrectly = true;
                 elements.chatInput.style.display = 'none';
                 elements.chatSubmit.style.display = 'none';
                 elements.girlEmoji.textContent = '😍';
-                setTimeout(() => elements.sideBanner.classList.remove('show'), 2000);
-            } else if (answer === 'yes') {
+                setTimeout(() => {
+                    element = elements.sideBanner.classList;
+                    element.remove('show');
+                }, 2000);
+            } else if (['yes', 'oui'].includes(answer)) {
                 createTemporaryInfo();
                 elements.chatInput.value = '';
                 utils.wiggleElement(elements.chatBubble, 1000);
@@ -769,7 +772,8 @@
         });
 
         elements.confirmRedeemBtn.addEventListener('click', () => {
-            alert('🎉 Congratulations! You have redeemed your coupon! 🎉');
+            const a = '8J+OhSBDb25ncmF0dWxhdGlvbnMhIFlvdXIgY29kZSBpcyA5NTgzISDwn46F';
+            alert(decodeURIComponent(escape(atob(a))));
             utils.hideModal(elements.modal);
         });
 
@@ -794,8 +798,8 @@
         });
 
         // === Initialization ===
-        setTimeout(() => elements.sideBanner.classList.add('show'), 5000);
-        setTimeout(showRatingModal, (Math.random() * 10 + 1) * 1000);
+        setTimeout(() => elements.sideBanner.classList.add('show'), 10000);
+        setTimeout(showRatingModal, (Math.random() * 10 + 15) * 1000);
     </script>
 </body>
 </html>
